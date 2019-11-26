@@ -29,3 +29,4 @@ public function boot()
     Schema::defaultStringLength(191);
 }
 }
+//application services
