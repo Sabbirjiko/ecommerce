@@ -5,6 +5,18 @@
   <div id="content-header">
     <div id="breadcrumb"> <a href="{{ route('admin_dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="{{ route('products') }}" title="Products" class="tip-bottom">Products</a><a href="{{ route('products.add') }}" title="Add New Product" class="tip-bottom current">New Product</a></div>
     <h1>Add New Product</h1>
+    @if(Session::has('flash_error_message'))
+      <div class="alert alert-danger alert-block" >
+          <button type="button" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+          <strong>{{Session('flash_error_message')}}</strong>
+      </div>
+    @endif
+    @if(Session::has('flash_success_message'))
+      <div class="alert alert-success alert-block" >
+          <button type="button" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+          <strong>{{Session('flash_success_message')}}</strong>
+      </div>
+    @endif
   </div>
 <!--End-breadcrumbs-->
 	<div class="container-fluid"><hr>

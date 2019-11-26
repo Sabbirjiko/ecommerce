@@ -3,14 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Category;
 use App\Models\Product;
+use Image;
+use Session;
 
 class ProductsController extends Controller
 {
     public function index()
     {
-        //
+        $products = Product::with('category')->get();
+        return view('admin.products.index',compact('products')) ;
     }
 
     public function addProduct(Request $request)
@@ -28,6 +33,7 @@ class ProductsController extends Controller
             ]);
 
             $data = $request->all();
+            
             $product = new Product;
             $product->product_name = $data['product_name'];
             $product->product_code = $data['product_code'];
@@ -36,10 +42,26 @@ class ProductsController extends Controller
             $product->description = $data['description'];
             $product->category_id = $data['category_id'];
             $product->price = $data['price'];
-            $product->image = $data['image'];
-
-            //dd($data['image']);exit();
             
+            //Upload Image
+
+            if ($request->hasfile('image')) {
+                $image_tmp = Input::file('image');
+                if ($image_tmp->isValid()) {
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    $filename = rand(111,9999).'.'.$extension;
+                    $large_image_path = 'images/backend_images/products/large/'.$filename;
+                    $medium_image_path = 'images/backend_images/products/medium/'.$filename;
+                    $small_image_path = 'images/backend_images/products/small/'.$filename;
+                    Image::make($image_tmp)->save($large_image_path);
+                    Image::make($image_tmp)->resize(600,600)->save($medium_image_path);
+                    Image::make($image_tmp)->resize(300,300)->save($small_image_path);
+
+                    $product->image = $filename;
+                }
+               
+            }
+            //dd($image_tmp);exit();
             $product->save();
             return redirect()->route('products')->with('flash_success_message','Product Added Successfully!!');
         }else{

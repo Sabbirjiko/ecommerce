@@ -3,7 +3,7 @@
 <div id="content">
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="{{ route('admin_dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="{{ route('categories') }}" title="Categories" class="tip-bottom current">Categories</a></div>
+    <div id="breadcrumb"> <a href="{{ route('admin_dashboard') }}" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a><a href="{{ route('products') }}" title="Products" class="tip-bottom current">Products</a></div>
     <h1>Products</h1>
     @if(Session::has('flash_error_message'))
       <div class="alert alert-danger alert-block" >
@@ -32,21 +32,19 @@
                       <tr>
                         <th>Id</th>
                         <th>Product Name</th>
+                        <th>Category</th>
                         <th>Description</th>
-                        <th>Parent Category</th>
-                        <th>Status</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($categories as $category)
+                      @foreach($products as $product)
                       <tr class="gradeX">
-                          <td>{{$category->id}}</td>
-                          <td>{{$category->name}}</td>
-                          <td>{{$category->description}}</td>
-                          <td>@if($category->parent_id == 0) Main Category @else {{$category->parent_category->name}}@endif</td>
-                          <td>@if($category->status == 1)<a href="#" class="btn btn-success btn-mini">Active</a>@else <a href="#" class="btn btn-danger btn-mini">Deactive</a> @endif</td>
-                          <td><a href="{{ route('categories.edit',$category->id) }}" class="btn btn-primary btn-mini" style="margin-right: 2px;">Edit</a><a href="#myAlert" data-toggle="modal" class="btn btn-danger btn-mini">Delete</a></td>
+                          <td>{{$product->id}}</td>
+                          <td>{{$product->product_name}}</td>
+                          <td>{{$product->category->name}}</td>
+                          <td>{{$product->description}}</td>
+                          <td><a href="{{ route('products.edit',$product->id) }}" class="btn btn-primary btn-mini" style="margin-right: 2px;">Edit</a><a href="#myAlert" data-toggle="modal" class="btn btn-danger btn-mini">Delete</a></td>
                       </tr>
                       @endforeach
                     </tbody>
@@ -57,10 +55,10 @@
                         <h3>Category Delete</h3>
                       </div>
                       <div class="modal-body">
-                        <p>Are you sure to delete <b>"{{ $category->name }}"</b> Category ??</p>
+                        <p>Are you sure to delete <b>"{{ $product->name }}"</b> Category ??</p>
                       </div>
                       <div class="modal-footer"> 
-                        <a class="btn btn-danger" href="{{ route('categories.delete',$category->id) }}">Confirm</a> <a data-dismiss="modal" class="btn btn-primary" href="#">Cancel</a> 
+                        <a class="btn btn-danger" href="{{ route('products.delete',$product->id) }}">Confirm</a> <a data-dismiss="modal" class="btn btn-primary" href="#">Cancel</a> 
                       </div>
                     </div>
                 </div>
