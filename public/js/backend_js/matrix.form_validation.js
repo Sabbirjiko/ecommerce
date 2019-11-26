@@ -46,7 +46,7 @@ $(document).ready(function(){
 		}
 	});
 
-	//Category form Validation 
+	//Product form Validation 
     $("#add_product").validate({
 		rules:{
 			required:{
