@@ -37,6 +37,8 @@ class ProductsController extends Controller
             $product->category_id = $data['category_id'];
             $product->price = $data['price'];
             $product->image = $data['image'];
+
+            //dd($data['image']);exit();
             
             $product->save();
             return redirect()->route('products')->with('flash_success_message','Product Added Successfully!!');
