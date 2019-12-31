@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/','IndexController@index')->name('frontend_index');
 Route::any('/admin','AdminController@login')->name('admin_login');
 Auth::routes();
 
@@ -43,9 +40,16 @@ Route::group(['middleware' => ['auth'],'prefix'=>'admin'], function () {
 		Route::any('delete_product/{id}', 'ProductsController@destroy')->name('products.delete');
 	});
 
+	//Product Attributes Route
+
+	Route::group(['prefix'=>'product_attribute'], function () {
+		Route::any('add/{id}', 'ProductsController@addProductAttribute')->name('products.add_attributes');
+		Route::get('view/{id}', 'ProductsController@ProductAttribute')->name('products.attributes');
+		Route::get('delete_productattribute/{id}', 'ProductsController@deleteProductAttribute')->name('products.deleteattribute');
+	});
+
 
 });
 
 Route::get('/logout', 'AdminController@logout')->name('admin_logout');
-Route::get('/home', 'HomeController@index')->name('home');
 
