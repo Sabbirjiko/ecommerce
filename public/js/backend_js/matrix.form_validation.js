@@ -65,8 +65,38 @@ $(document).ready(function(){
 				required:true,
 				number:true,
 			},
-			image:{
+			category_id:{
 				required:true,
+			},
+		},
+		errorClass: "help-inline",
+		errorElement: "span",
+		highlight:function(element, errorClass, validClass) {
+			$(element).parents('.control-group').addClass('error');
+		},
+		unhighlight: function(element, errorClass, validClass) {
+			$(element).parents('.control-group').removeClass('error');
+			$(element).parents('.control-group').addClass('success');
+		}
+	});
+	//Product form Validation 
+    $("#edit_product").validate({
+		rules:{
+			required:{
+				required:true
+			},
+			product_name:{
+				required:true,
+			},
+			product_code:{
+				required:true,
+			},
+			product_color:{
+				required:true,
+			},
+			price:{
+				required:true,
+				number:true,
 			},
 			category_id:{
 				required:true,
@@ -168,4 +198,5 @@ $(document).ready(function(){
 			$(element).parents('.control-group').addClass('success');
 		}
 	});
+
 });
