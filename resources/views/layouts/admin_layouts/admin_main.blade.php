@@ -24,5 +24,9 @@
 <!--end-Footer-part-->
 @include('layouts.admin_layouts.admin_js')
 
+<!-- Custoom Scripts on Pages -->
+@yield('scripts')
+<!-- Custoom Scripts on Pages End -->
+
 </body>
 </html>
