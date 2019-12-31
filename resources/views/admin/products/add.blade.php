@@ -77,6 +77,7 @@
                       <div class="control-group">
                         <label class="control-label">Image</label>
                         <div class="controls">
+                          <img id="blah" src="{{asset('images/no-image.png')}}" style="width: 150px;height: 150px;margin-bottom:5px;"><br>
                             <input type="file" name="image" id="image">
                         </div>
                       </div>
@@ -91,3 +92,23 @@
 	</div>
 </div>
 @endsection
+@section('scripts')
+<script type="text/javascript">
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+    
+      reader.onload = function(e) {
+        $('#blah').attr('src', e.target.result);
+      }
+    
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+$("#image").change(function() {
+  readURL(this);
+});
+</script>
+@stop
